@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+from telegram.ext import Defaults
 from datetime import time
 from pathlib import Path
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
@@ -176,7 +177,10 @@ async def on_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 # ──────────────────────────── ЗАПУСК ────────────────────────────
 def main() -> None:
     data = load_data()
-    app = Application.builder().token(TOKEN).build()
+    app = (Application.builder()
+       .token(TOKEN)
+       .defaults(Defaults(tzinfo=datetime.timezone(datetime.timedelta(hours=3))))
+       .build())
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(on_button))
     # відновлюємо щотижневі джоби для всіх відомих користувачів після перезапуску
