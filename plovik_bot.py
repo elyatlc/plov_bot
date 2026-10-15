@@ -56,7 +56,7 @@ def main_keyboard() -> InlineKeyboardMarkup:
 # ──────────────────────────── ТЕКСТИ ────────────────────────────
 def attending_list_text(data: dict) -> str:
     coming = [u["name"] for u in data.get("users", {}).values() if u.get("coming")]
-    lines = ["🍛 на пловік йдуть:"]
+    lines = ["на пловік йдуть:"]
     if coming:
         lines += [f"• {name}" for name in coming]
     else:
