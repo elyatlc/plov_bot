@@ -60,7 +60,7 @@ def attending_list_text(data: dict) -> str:
     if coming:
         lines += [f"• {name}" for name in coming]
     else:
-        lines.append("• поки що ніхто 😢")
+        lines.append("• поки що ніхто 💔")
     return "\n".join(lines)
 
 
@@ -71,9 +71,9 @@ def rating_text(data: dict) -> str:
         reverse=True,
     )
     if not rating:
-        return "🏆 Рейтинг пловніків поки що порожній."
+        return "🏆 рейтинг пловніків поки що порожній."
     medals = ["🥇", "🥈", "🥉"]
-    lines = ["🏆 Рейтинг пловніків:"]
+    lines = ["🏆 рейтинг пловніків:"]
     for i, r in enumerate(rating):
         medal = medals[i] if i < 3 else f"{i + 1}."
         lines.append(f"{medal} {r['name']} — {r['count']} пловіків")
@@ -92,7 +92,7 @@ async def send_weekly_poll(context: ContextTypes.DEFAULT_TYPE) -> None:
 
     poll_msg = await context.bot.send_message(
         chat_id=user_id,
-        text="будеш на пловікє? 🍛",
+        text="пловік?",
         reply_markup=main_keyboard(),
     )
     list_msg = await context.bot.send_message(
@@ -128,10 +128,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     schedule_weekly_job(context.application, user.id)
 
     await update.message.reply_text(
-        f"Йо, {user.first_name}! Я — пловік 🍛\n"
-        f"Щочетверга о {POLL_HOUR}:00 я питатиму «будеш на пловікє?» "
-        "просто тут, в особистих.\n"
-        "Кнопки завжди під рукою 👇",
+        f"єййй, {user.first_name}! я пловік\n"
+        f"щочетверга о {POLL_HOUR}:00 я питатиму чи будеш ти на плові» "
+        "кнопки 👇",
         reply_markup=main_keyboard(),
     )
 
@@ -180,13 +179,13 @@ async def on_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             rating[user_id]["count"] += 1
         save_data(data)
         await refresh_list_messages(context, data)
-        await query.answer("Записав! Будеш на пловікє 🍛")
+        await query.answer("харош, будеш на плові 💪")
 
     elif action == "decline":
         user_data["coming"] = False
         save_data(data)
         await refresh_list_messages(context, data)
-        await query.answer("Шкода... Ну нічого, наступного разу!")
+        await query.answer("лейм...")
 
 
 # ──────────────────────────── ЗАПУСК ────────────────────────────
@@ -207,7 +206,7 @@ def main() -> None:
         except ValueError:
             continue
 
-    log.info("пловік запущений 🍛")
+    log.info("пловік запущений!")
     app.run_polling()
 
 
