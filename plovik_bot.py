@@ -56,7 +56,7 @@ def main_keyboard() -> InlineKeyboardMarkup:
 # ──────────────────────────── ТЕКСТИ ────────────────────────────
 def attending_list_text(data: dict) -> str:
     coming = [u["name"] for u in data.get("users", {}).values() if u.get("coming")]
-    lines = ["🍛 На пловікє йдуть:"]
+    lines = ["🍛 на пловік йдуть:"]
     if coming:
         lines += [f"• {name}" for name in coming]
     else:
@@ -76,7 +76,7 @@ def rating_text(data: dict) -> str:
     lines = ["🏆 рейтинг пловніків:"]
     for i, r in enumerate(rating):
         medal = medals[i] if i < 3 else f"{i + 1}."
-        lines.append(f"{medal} {r['name']} — {r['count']} пловіків")
+        lines.append(f"{medal} {r['name']} — {r['count']} відвідувань")
     return "\n".join(lines)
 
 
@@ -129,7 +129,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     await update.message.reply_text(
         f"єййй, {user.first_name}! я пловік\n"
-        f"щочетверга о {POLL_HOUR}:00 я питатиму чи будеш ти на плові» "
+        f"щочетверга о {POLL_HOUR}:00 я питатиму чи будеш ти на плові "
         "кнопки 👇",
         reply_markup=main_keyboard(),
     )
