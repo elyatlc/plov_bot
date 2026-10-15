@@ -2,6 +2,7 @@ import json
 import logging
 from datetime import time
 from pathlib import Path
+import os
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
@@ -12,7 +13,7 @@ from telegram.ext import (
 )
 
 # ──────────────────────────── НАЛАШТУВАННЯ ────────────────────────────
-TOKEN = "8882279341:AAEXi_dAlLIlMawx_6T4sESe0brK_2wrYFM"
+TOKEN = os.environ["TOKEN"]
 DATA_FILE = Path(__file__).parent / "data.json"
 POLL_WEEKDAY = 3   # 0 = понеділок ... 3 = четвер
 POLL_HOUR = 9      # година ранку, коли бот пише "будеш на пловікє?"
